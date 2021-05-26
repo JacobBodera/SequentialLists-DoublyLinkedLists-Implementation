@@ -4,7 +4,6 @@
 SequentialList::SequentialList(unsigned int cap)
 {
     data_ = new DataType[cap];
-
 }
 
 SequentialList::~SequentialList()
@@ -15,11 +14,7 @@ SequentialList::~SequentialList()
 
 unsigned int SequentialList::size() const
 {
-    unsigned int i = 0;
-    while (*(data_ + i) != NULL){
-        i++;
-    }
-    return i;
+    return size_;
 }
 
 unsigned int SequentialList::capacity() const
@@ -29,28 +24,24 @@ unsigned int SequentialList::capacity() const
 
 bool SequentialList::empty() const
 {
-    for(int i = 0; i < capacity_; i++){
-        if(*(data_ + i) != NULL)
-            return false;
-    }
-    return true;
+    if(size_ == 0)
+        return true;
+    return false;
 }
 
 bool SequentialList::full() const
 {
-    for(int i = 0; i < capacity_; i++){
-        if(*(data_ + i) = NULL)
-            return false;
-    }
-    return true;
+    if(size_ == capacity_)
+        return true;
+    return false;
 }
 
 SequentialList::DataType SequentialList::select(unsigned int index) const
 {
    if(index >= 0 && index < capacity_)
        return *(data_ + index);
-   return *(data_ + capacity_ - 1);
-
+   if(size_ != 0)
+       return *(data_ + size_ - 1);
 }
 
 unsigned int SequentialList::search(DataType val) const
@@ -59,13 +50,14 @@ unsigned int SequentialList::search(DataType val) const
         if(*(data_ + i) == val)
             return i;
     }
-    return SequentialList::size();
+    return size_;
 
 }
 
 void SequentialList::print() const
 {
-    
+    for(int i = 0; i < size(); i++)
+        std::cout << *(data_ + i) << "\t";
 }
 
 bool SequentialList::insert(DataType val, unsigned int index)
@@ -73,12 +65,12 @@ bool SequentialList::insert(DataType val, unsigned int index)
     if(size() == capacity_)
         return false;
 
-    int temp = 0;
-    int assign = val;
+    DataType temp = 0;
+    DataType assign = val;
     if(*(data_ + index - 1) != NULL || index == 0){
-        for(int i = 0; i <= size() + 1; i++){
-            temp = *(data_ + index + i);
-            *(data_ + index + i) = assign;
+        for(int i = index; i < size(); i++){
+            temp = *(data_ + i);
+            *(data_ + i) = assign;
             assign = temp;
         }
         return true;
@@ -91,8 +83,8 @@ bool SequentialList::insert_front(DataType val)
     if(size() == capacity_)
         return false;
 
-    int temp = 0;
-    int assign = val;
+    DataType temp = 0;
+    DataType assign = val;
     for(int i = 0; i < capacity_; i++){
         temp = *(data_ + i);
         *(data_ + i) = assign;
@@ -106,14 +98,19 @@ bool SequentialList::insert_back(DataType val)
     if(size() == capacity_)
         return false;
 
-    *(data_ + size() + 1) = val;
+    *(data_ + size()) = val;
     return true;
 }
 
 bool SequentialList::remove(unsigned int index)
 {
+    if(size() == 0)
+        return false;
 
-
+    for(int i = 0; i < size() - index; i++){
+        *(data_ + index + i) = *(data_ + index + i + 1);
+    }
+    return true;
 }
 
 bool SequentialList::remove_front()
@@ -131,7 +128,7 @@ bool SequentialList::remove_back()
    if(size() == 0)
        return false;
 
-   *(data_ + size() + 1) = NULL;
+   *(data_ + size() - 1) = NULL;
    return true;
 }
 

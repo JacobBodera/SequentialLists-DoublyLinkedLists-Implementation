@@ -21,7 +21,6 @@ public:
         ASSERT_TRUE(list.tail_ == NULL)
         return true;
     }
-
     // insert_front() and insert_back() on zero-element list
     bool test2()
     {
