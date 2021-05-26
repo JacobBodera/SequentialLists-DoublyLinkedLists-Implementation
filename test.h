@@ -11,14 +11,18 @@ class DoublyLinkedListTest
 {
 public:
     // New empty list is valid
+
     bool test1()
     {
         DoublyLinkedList list;
         ASSERT_TRUE(list.size() == 0)
         ASSERT_TRUE(list.empty() == true)
         ASSERT_TRUE(list.full() == false)
+        std::cout << "g";
         ASSERT_TRUE(list.head_ == NULL)
+        std::cout << "5";
         ASSERT_TRUE(list.tail_ == NULL)
+        std::cout << "9";
         return true;
     }
     // insert_front() and insert_back() on zero-element list
@@ -243,7 +247,6 @@ public:
         SequentialList list2(capacity);
         ASSERT_TRUE(list1.insert_front(100))
         ASSERT_TRUE(list2.insert_back(100))
-
         ASSERT_TRUE(list1.size() == list2.size() && list1.size() == 1)
         ASSERT_TRUE(list1.data_ != NULL)
         ASSERT_TRUE(list2.data_ != NULL)
@@ -252,7 +255,7 @@ public:
     }
 
     // select() and search() work properly
-    bool test3() {
+    bool test3() { std::cout << "het";
         unsigned int capacity = 5;
         SequentialList list(capacity);
         for (unsigned int i = 0; i < capacity; i++) {
@@ -272,6 +275,7 @@ public:
 
     // remove_front() and remove_back() on one-element list
     bool test4() {
+        std::cout << "test 4";
         unsigned int capacity = 5;
         SequentialList list1(capacity);
         SequentialList list2(capacity);
@@ -287,6 +291,7 @@ public:
 
     // Inserting too many elements should fail
     bool test5() {
+        std::cout << "test 5";
         unsigned int capacity = 5;
         SequentialList list(capacity);
         // Fill up the list.
