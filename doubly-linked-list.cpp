@@ -185,16 +185,40 @@ bool DoublyLinkedList::remove(unsigned int index)
 
 unsigned int DoublyLinkedList::search(DataType value) const
 {
-    
-
-
+    int index = 0;
+    Node* searched = new Node(value);
+    Node* current = head_;
+    while (searched -> value != current -> value || index < size_ + 1) {
+        current = current -> next;
+        ++index;
+    }
+    return index;
 }
+
 DoublyLinkedList::DataType DoublyLinkedList::select(unsigned int index) const
 {
-  
+    if (size_ == 0)
+        return -1;
 
+    int count = 0;
+    Node* found = head_;
 
+    if (index > size_ || index < 0) {
+        while (count < size_) {
+            found = found -> next;
+            ++count;
+        }
+        return found -> value;
+    }
+    else {
+        while (count < index) {
+            found = found->next;
+            ++count;
+        }
+        return found -> value;
+    }
 }
+
 bool DoublyLinkedList::replace(unsigned int index, DataType value)
 {
     
