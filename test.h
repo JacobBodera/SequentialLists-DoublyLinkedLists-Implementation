@@ -230,6 +230,7 @@ class SequentialListTest {
 public:
     // New empty list is valid
     bool test1() {
+
         unsigned int capacity = 5;
         SequentialList list(capacity);
 
@@ -314,11 +315,15 @@ public:
 
     // insert_front() keeps moving elements forward
     bool test6() {
+        std::cout << "test 6";
         unsigned int capacity = 5;
+        std::cout << ";;;;;";
         SequentialList list(capacity);
+        std::cout << "///";
         for (unsigned int i = 0; i < capacity; i++) {
             ASSERT_TRUE(list.insert_front(i))
             ASSERT_TRUE(list.size_ == (i + 1))
+            std::cout << ".";
             for (int j = 0; j <= i; j++) {
                 SequentialList::DataType expected_value = i - j;
                 ASSERT_TRUE(list.data_[j] == expected_value)
@@ -329,6 +334,7 @@ public:
     // inserting at different positions in the list succeeds
     bool test7()
     {
+        std::cout << "test 7";
         unsigned int capacity = 10;
         SequentialList list(capacity);
         for (int i = 0; i < 4; i++) {
@@ -352,6 +358,7 @@ public:
     // try to remove too many elements, then add a few elements
     bool test8()
     {
+        std::cout << "test 8";
         unsigned int capacity = 5;
         const int num_elems = 4;
         SequentialList list(capacity);
@@ -378,6 +385,7 @@ public:
     // lots of inserts and deletes, all of them valid
     bool test9()
     {
+        std::cout << "test 9";
         unsigned int capacity = 5;
         SequentialList list(capacity);
 
@@ -400,6 +408,7 @@ public:
     // lots of inserts and deletes, some of them invalid
     bool test10()
     {
+        std::cout << "test 10";
         unsigned int capacity = 5;
         SequentialList list(capacity);
 

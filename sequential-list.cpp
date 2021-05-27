@@ -4,6 +4,8 @@
 SequentialList::SequentialList(unsigned int cap)
 {
     data_ = new DataType[cap];
+    size_ = 0;
+    capacity_ = cap;
 }
 
 SequentialList::~SequentialList()
@@ -84,10 +86,11 @@ bool SequentialList::insert_front(DataType val)
         return false;
     }
 
-    data_ -= 1;
     *data_ = val;
     size_++;
     return true;
+
+
 }
 
 bool SequentialList::insert_back(DataType val)
@@ -95,7 +98,7 @@ bool SequentialList::insert_back(DataType val)
     if(size_ == capacity_) {
         return false;
     }
-
+    data_[size_] = val;
     *(data_ + size_) = val;
     size_++;
     return true;
@@ -120,7 +123,7 @@ bool SequentialList::remove_front()
         return false;
     }
 
-    data_ += 1;
+
     size_--;
     return true;
 }
