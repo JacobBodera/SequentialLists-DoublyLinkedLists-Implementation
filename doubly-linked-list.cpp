@@ -55,7 +55,7 @@ void DoublyLinkedList::print() const
                 std:: cout << " -> ";
             current = current -> next;
         }
-        std::cout << "\t " << size_ << "\n";
+        std::cout << "\n";
     }
 }
 bool DoublyLinkedList::insert_front(DataType value)

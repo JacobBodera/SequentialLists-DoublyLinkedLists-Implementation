@@ -177,21 +177,13 @@ public:
         DoublyLinkedList list;
 
         ASSERT_TRUE(list.insert_back(32))
-        list.print();
         ASSERT_TRUE(list.insert_front(44))
-        list.print();
         ASSERT_TRUE(list.insert(12,2))
-        list.print();
         ASSERT_TRUE(list.remove_back())
-        list.print();
         ASSERT_TRUE(list.remove_front())
-        list.print();
         ASSERT_TRUE(list.insert_back(88))
-        list.print();
         ASSERT_TRUE(list.remove(1))
-        list.print();
         ASSERT_TRUE(list.insert(99,0))
-        list.print();
         // Check that the list has the right values
         ASSERT_TRUE(list.select(0) == 99 && list.head_->value == 99)
         ASSERT_TRUE(list.select(1) == 32 && list.tail_->value == 32)
