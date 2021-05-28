@@ -13,7 +13,7 @@ public:
     // New empty list is valid
 
     bool test1()
-    {std::cout << "Test1";
+    {
         DoublyLinkedList list;
         ASSERT_TRUE(list.size() == 0)
         ASSERT_TRUE(list.empty() == true)
@@ -24,7 +24,7 @@ public:
     }
     // insert_front() and insert_back() on zero-element list
     bool test2()
-    {std::cout << "Test2";
+    {
         DoublyLinkedList list1, list2;
         list1.insert_front(100);
         list2.insert_back(100);
@@ -40,7 +40,7 @@ public:
 
     // select() and search() work properly
     bool test3()
-    {std::cout << "    Test3    ";
+    {
         DoublyLinkedList list;
         const int num_elems = 5;
         for (int i = 0; i < num_elems; i++) {
@@ -63,13 +63,16 @@ public:
 
     // remove_front() and remove_back() on one-element list
     bool test4()
-    { std::cout << "Test4";
+    {
         DoublyLinkedList list1, list2;
         ASSERT_TRUE(list1.insert_front(100))
         ASSERT_TRUE(list2.insert_front(100))
         ASSERT_TRUE(list1.remove_front())
         ASSERT_TRUE(list2.remove_back())
 
+        std::cout << "\n\n";
+        std::cout << "\n\n";
+        list2.print();
         ASSERT_TRUE(list1.head_ == NULL && list1.tail_ == NULL)
         ASSERT_TRUE(list2.head_ == NULL && list2.tail_ == NULL)
         ASSERT_TRUE(list1.size_ == list2.size_ && list1.size_ == 0)
@@ -79,7 +82,7 @@ public:
 
     // replace() works properly
     bool test5()
-    { std::cout << "Test5";
+    {
         DoublyLinkedList list;
         const int num_elems = 8;
         for (int i = 0; i < num_elems; i++) {
@@ -100,7 +103,7 @@ public:
 
     // insert_front() keeps moving elements forward
     bool test6()
-    { std::cout << "Test6";
+    {
         DoublyLinkedList list;
         const int num_elems = 5;
         for (unsigned int i = 0; i < num_elems; i++) {
@@ -121,7 +124,7 @@ public:
 
     // inserting at different positions in the list
     bool test7()
-    { std::cout << "Test7";
+    {
         DoublyLinkedList list;
         for (int i = 0; i < 4; i++) {
             ASSERT_TRUE(list.insert_back(i))
@@ -146,7 +149,7 @@ public:
 
     // try to remove too many elements, then add a few elements
     bool test8()
-    { std::cout << "Test8";
+    {
         DoublyLinkedList list;
         const int num_elems = 4;
         for (int i = 0; i < num_elems; i++) {
@@ -174,35 +177,30 @@ public:
 
     // lots of inserts and deletes, all of them valid
     bool test9()
-    { std::cout << "Test9";
+    {
         DoublyLinkedList list;
-        std::cout << "2";
 
         ASSERT_TRUE(list.insert_back(32))
         ASSERT_TRUE(list.insert_front(44))
         ASSERT_TRUE(list.insert(12,2))
         ASSERT_TRUE(list.remove_back())
         ASSERT_TRUE(list.remove_front())
-        std::cout << "3";
         ASSERT_TRUE(list.insert_back(88))
-        std::cout << "4";
         ASSERT_TRUE(list.remove(1))
-        std::cout << "5";
         ASSERT_TRUE(list.insert(99,0))
-        std::cout << "6";
+        std::cout << "\n\n";
+        list.print();
         // Check that the list has the right values
         ASSERT_TRUE(list.select(0) == 99 && list.head_->value == 99)
         ASSERT_TRUE(list.select(1) == 32 && list.tail_->value == 32)
-        std::cout << "b";
         ASSERT_TRUE(list.head_->next == list.tail_ && list.tail_->prev == list.head_)
         ASSERT_TRUE(list.head_->prev == NULL && list.tail_->next == NULL)
-        std::cout << "c";
         return true;
     }
 
     // lots of inserts and deletes, some of them invalid
     bool test10()
-    { std::cout << "Test10";
+    {
         DoublyLinkedList list;
 
         ASSERT_FALSE(list.remove(0))
@@ -217,7 +215,8 @@ public:
         ASSERT_FALSE(list.insert(12345,6))
         ASSERT_TRUE(list.remove(1))
         ASSERT_TRUE(list.insert(99,0))
-
+        std::cout << "\n\n";
+        list.print();
         // Check that the list has the right values
         ASSERT_TRUE(list.select(0) == 99 && list.head_->value == 99)
         ASSERT_TRUE(list.select(1) == 32 && list.tail_->value == 32)
@@ -258,7 +257,7 @@ public:
     }
 
     // select() and search() work properly
-    bool test3() { std::cout << "het";
+    bool test3() {
         unsigned int capacity = 5;
         SequentialList list(capacity);
         for (unsigned int i = 0; i < capacity; i++) {
@@ -278,7 +277,6 @@ public:
 
     // remove_front() and remove_back() on one-element list
     bool test4() {
-        std::cout << "test 4";
         unsigned int capacity = 5;
         SequentialList list1(capacity);
         SequentialList list2(capacity);
@@ -294,7 +292,6 @@ public:
 
     // Inserting too many elements should fail
     bool test5() {
-        std::cout << "test 5";
         unsigned int capacity = 5;
         SequentialList list(capacity);
         // Fill up the list.
@@ -317,15 +314,11 @@ public:
 
     // insert_front() keeps moving elements forward
     bool test6() {
-        std::cout << "test 6";
         unsigned int capacity = 5;
-        std::cout << ";;;;;";
         SequentialList list(capacity);
-        std::cout << "///";
         for (unsigned int i = 0; i < capacity; i++) {
             ASSERT_TRUE(list.insert_front(i))
             ASSERT_TRUE(list.size_ == (i + 1))
-            std::cout << ".";
             for (int j = 0; j <= i; j++) {
                 SequentialList::DataType expected_value = i - j;
                 ASSERT_TRUE(list.data_[j] == expected_value)
@@ -336,7 +329,6 @@ public:
     // inserting at different positions in the list succeeds
     bool test7()
     {
-        std::cout << "test 7";
         unsigned int capacity = 10;
         SequentialList list(capacity);
         for (int i = 0; i < 4; i++) {
@@ -360,7 +352,6 @@ public:
     // try to remove too many elements, then add a few elements
     bool test8()
     {
-        std::cout << "test 8";
         unsigned int capacity = 5;
         const int num_elems = 4;
         SequentialList list(capacity);
@@ -387,7 +378,6 @@ public:
     // lots of inserts and deletes, all of them valid
     bool test9()
     {
-        std::cout << "test 9";
         unsigned int capacity = 5;
         SequentialList list(capacity);
 
@@ -410,7 +400,6 @@ public:
     // lots of inserts and deletes, some of them invalid
     bool test10()
     {
-        std::cout << "test 10";
         unsigned int capacity = 5;
         SequentialList list(capacity);
 
