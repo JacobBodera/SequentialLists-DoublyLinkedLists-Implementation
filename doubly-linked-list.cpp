@@ -12,11 +12,11 @@ DoublyLinkedList::DoublyLinkedList()
 }
 /*DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& list)
 :size_(list.size_)
-{
-	
+{}
+	*/
 
 
-}*/
+
 DoublyLinkedList::~DoublyLinkedList()
 {
     Node* current = head_;
@@ -72,6 +72,7 @@ bool DoublyLinkedList::insert_front(DataType value)
        head_ = ins;
    }
     ++ size_;
+    return true;
 
 }
 bool DoublyLinkedList::remove_front()
@@ -109,7 +110,6 @@ bool DoublyLinkedList::insert_back(DataType value)
         tail_ = ins;
     }
     ++ size_;
-
     return true;
 }
 
@@ -121,13 +121,12 @@ bool DoublyLinkedList::remove_back()
         current = current -> next;
         ++count;
     }
-    if (!current -> next -> next) {
-        head_ = current;
-        delete (current->next);
-        current->next = NULL;
-    }
-        --size_;
-        return true;
+    tail_ = current;
+    delete (current->next);
+    current->next = NULL;
+
+    --size_;
+    return true;
 }
 
 bool DoublyLinkedList::insert(DataType value, unsigned int index)
@@ -160,6 +159,8 @@ bool DoublyLinkedList::insert(DataType value, unsigned int index)
 
 bool DoublyLinkedList::remove(unsigned int index)
 {
+    std::cout << "[ " << size_ << " ]";
+    std::cout << "< " << index << " >";
     if(size_ == 0 || index < 0 || index > size_)
         return false;
 
@@ -170,13 +171,18 @@ bool DoublyLinkedList::remove(unsigned int index)
     else {
         int count = 0;
         Node* current = head_;
-        while (count < size_ - 1) {
+        while (count < index - 1) {
             current = current -> next;
             ++count;
         }
+
+        std::cout << "A";
         Node* temp = current -> next -> next;
+        std::cout << "B";
         temp -> prev = current;
+        std::cout << "C";
         delete (current -> next);
+        std::cout << "D";
         current -> next = temp;
     }
     --size_;
@@ -185,21 +191,21 @@ bool DoublyLinkedList::remove(unsigned int index)
 
 unsigned int DoublyLinkedList::search(DataType value) const
 {
+    Node* temp = head_;
     int index = 0;
-    Node* searched = new Node(value);
-    Node* current = head_;
-    while (searched -> value != current -> value || index < size_ + 1) {
-        current = current -> next;
+    while (temp -> value != value && temp -> next != NULL) {
         ++index;
+        temp = temp -> next;
     }
-    return index;
+
+    if (temp -> value != value)
+        return size_;
+
+    return index + 1;
 }
 
 DoublyLinkedList::DataType DoublyLinkedList::select(unsigned int index) const
 {
-    if (size_ == 0)
-        return -1;
-
     int count = 0;
     Node* found = head_;
 
@@ -215,20 +221,31 @@ DoublyLinkedList::DataType DoublyLinkedList::select(unsigned int index) const
             found = found->next;
             ++count;
         }
+        std::cout << found -> value << "   ";
         return found -> value;
     }
 }
 
 bool DoublyLinkedList::replace(unsigned int index, DataType value)
 {
-    
+    if (index > size_ || index < 0)
+    return false;
 
+    int count = 0;
+    Node* temp = head_;
+    while (count < index){
+        temp = temp -> next;
+        ++count;
+    }
+    temp -> value = value;
+    return true;
 }
 DoublyLinkedList::Node* DoublyLinkedList::getNode(unsigned int index) const
 {
    
 
 }
+
 bool DoublyLinkedList::full() const
 {
     if(size_ == CAPACITY)
