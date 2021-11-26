@@ -2,21 +2,17 @@
 #include <iostream>
 #include <new>
 
+// parametric constructor for the class
 DoublyLinkedList::Node::Node(DataType data):
         value(data), next(NULL), prev(NULL)
 {
 }
+// default constructor for the class
 DoublyLinkedList::DoublyLinkedList()
         :head_(NULL), tail_(NULL), size_(0)
 {
 }
-/*DoublyLinkedList::DoublyLinkedList(const DoublyLinkedList& list)
-:size_(list.size_)
-{}
-	*/
-
-
-
+// deconstructor for the class
 DoublyLinkedList::~DoublyLinkedList()
 {
     Node* current = head_;
@@ -28,19 +24,17 @@ DoublyLinkedList::~DoublyLinkedList()
     head_ = tail_ = NULL;
     size_ = 0;
 }
+// outputs whether or not the list is empty
 bool DoublyLinkedList::empty() const
 {
-    if(size_ == 0) {
-        return true;
-    }
-    return false;
+    return size_ == 0;
 }
-
+// outputs the size of the list
 unsigned int DoublyLinkedList::size() const
 {
     return size_;
 }
-
+// prints a visual representation for the list
 void DoublyLinkedList::print() const
 {
     if(!head_) {
@@ -58,6 +52,7 @@ void DoublyLinkedList::print() const
         std::cout << "\n";
     }
 }
+// inserts a new value at the front of the list
 bool DoublyLinkedList::insert_front(DataType value)
 {
     if (CAPACITY == size_)
@@ -77,6 +72,7 @@ bool DoublyLinkedList::insert_front(DataType value)
     return true;
 
 }
+// removes the value at the front of the list
 bool DoublyLinkedList::remove_front()
 {
     if(size_ == 0 || !head_)
@@ -96,6 +92,7 @@ bool DoublyLinkedList::remove_front()
     --size_;
     return true;
 }
+// inserts a value at the back of the list
 bool DoublyLinkedList::insert_back(DataType value)
 {
     if (CAPACITY == size_)
@@ -114,7 +111,7 @@ bool DoublyLinkedList::insert_back(DataType value)
     ++ size_;
     return true;
 }
-
+// removes the value at the back of the list
 bool DoublyLinkedList::remove_back()
 {
     if(size_ == 0 || !head_) {
@@ -141,7 +138,7 @@ bool DoublyLinkedList::remove_back()
     --size_;
     return true;
 }
-
+// inserts a value at a given index in the list
 bool DoublyLinkedList::insert(DataType value, unsigned int index)
 {
     if (CAPACITY == size_ || index > size_ || index < 0) {
@@ -173,7 +170,7 @@ bool DoublyLinkedList::insert(DataType value, unsigned int index)
     }
     return true;
 }
-
+// removes the value at the given index
 bool DoublyLinkedList::remove(unsigned int index)
 {
     if(size_ == 0 || index < 0 || index >= size_)
@@ -199,7 +196,8 @@ bool DoublyLinkedList::remove(unsigned int index)
     }
     return true;
 }
-
+// searches the list for a value and returns the index at which it first appears
+// if the value is not found, the size of the list is output
 unsigned int DoublyLinkedList::search(DataType value) const
 {
     Node* found = head_;
@@ -214,7 +212,8 @@ unsigned int DoublyLinkedList::search(DataType value) const
     else
         return index;
 }
-
+// return the value at a given index
+// if the index is invalid, it return the last element in the list
 DoublyLinkedList::DataType DoublyLinkedList::select(unsigned int index) const
 {
     int count = 0;
@@ -234,7 +233,7 @@ DoublyLinkedList::DataType DoublyLinkedList::select(unsigned int index) const
     }
     return found -> value;
 }
-
+// replaces the value at a given index with a new value
 bool DoublyLinkedList::replace(unsigned int index, DataType value)
 {
     if (index > size_ || index < 0)
@@ -251,14 +250,9 @@ bool DoublyLinkedList::replace(unsigned int index, DataType value)
 }
 DoublyLinkedList::Node* DoublyLinkedList::getNode(unsigned int index) const
 {
-   
-
 }
-
+// outputs whether the list is full
 bool DoublyLinkedList::full() const
 {
-    if(size_ == CAPACITY)
-        return true;
-    return false;
-
+    return size_ == CAPACITY;
 }
