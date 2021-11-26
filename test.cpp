@@ -16,10 +16,10 @@ string get_status_str(bool status)
 
 int main()
 {
-   // SequentialListTest seq_test;
+   SequentialListTest seq_test;
     DoublyLinkedListTest linked_test;
 
-  /*  string seq_test_descriptions[10] = {
+    string seq_test_descriptions[10] = {
             "Test1: New empty list is valid",
             "Test2: insert_front() and insert_back() on zero-element list",
             "Test3: select() and search() work properly",
@@ -49,7 +49,7 @@ int main()
     for (int i = 0; i < 10; ++i) {
         cout << seq_test_descriptions[i] << endl << get_status_str(seq_test_results[i]) << endl;
     }
-*/
+
     string linked_test_descriptions[10] = {
             "Test1: New empty list is valid",
             "Test2: insert_front() and insert_back() on zero-element list",

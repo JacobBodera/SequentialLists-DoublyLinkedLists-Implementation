@@ -25,36 +25,26 @@ unsigned int SequentialList::capacity() const
 
 bool SequentialList::empty() const
 {
-    if(size_ == 0)
-        return true;
-    return false;
+    return size_ == 0;
 }
 
 bool SequentialList::full() const
 {
-    if(size_ == capacity_)
-        return true;
-    return false;
+    return size_ == capacity_;
 }
 
 SequentialList::DataType SequentialList::select(unsigned int index) const
 {
-   if(index >= 0 && index < capacity_) {
-       return *(data_ + index);
-   }
-   if(size_ != 0) {
-       return *(data_ + size_ - 1);
-   }
-   else
-       return *data_;
+   if (index < 0 || index >= size_)
+       return data_[size_ - 1];
+   return data_[index];
 }
 
 unsigned int SequentialList::search(DataType val) const
 {
-    for(unsigned int i = 0; i < size_; i++){
-        if(*(data_ + i) == val) {
+    for (int i = 0; i < size_; i++) {
+        if (data_[i] == val)
             return i;
-        }
     }
     return size_;
 }
@@ -72,46 +62,32 @@ bool SequentialList::insert(DataType val, unsigned int index)
         return false;
     }
 
-    for(int i = size_; i > index; i--){
-        *(data_ + i) = *(data_ + i - 1);
+    for (int i = size_; i > index; i--){
+        data_[i] = data_[i-1];
     }
-    *(data_ + index) = val;
+    data_[index] = val;
     size_++;
     return true;
 }
 
 bool SequentialList::insert_front(DataType val)
 {
-    if(size_ == capacity_) {
-        return false;
-    }
-
-    *data_ = val;
-    size_++;
-    return true;
-
-
+    insert(val, 0);
 }
 
 bool SequentialList::insert_back(DataType val)
 {
-    if(size_ == capacity_) {
-        return false;
-    }
-    data_[size_] = val;
-    *(data_ + size_) = val;
-    size_++;
-    return true;
+    insert(val, size_);
 }
 
 bool SequentialList::remove(unsigned int index)
 {
-    if(size_ == 0) {
+    if(size_ == 0 || index < 0 || index >= size_) {
         return false;
     }
 
     for(int i = index; i < size_ - 1; i++){
-        *(data_ + i) = *(data_ + i + 1);
+        data_[i] = data_[i + 1];
     }
     size_--;
     return true;
@@ -119,23 +95,12 @@ bool SequentialList::remove(unsigned int index)
 
 bool SequentialList::remove_front()
 {
-    if(size_ == 0) {
-        return false;
-    }
-
-
-    size_--;
-    return true;
+    remove(0);
 }
 
 bool SequentialList::remove_back()
 {
-   if(size_ == 0) {
-       return false;
-   }
-
-   size_--;
-   return true;
+   remove(size_ - 1);
 }
 
 bool SequentialList::replace(unsigned int index, DataType val)
@@ -144,7 +109,7 @@ bool SequentialList::replace(unsigned int index, DataType val)
         return false;
     }
 
-    *(data_ + index) = val;
+    data_[index] = val;
     return true;
  }
 
